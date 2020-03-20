@@ -1,0 +1,33 @@
+{
+	"ver": 1,
+	"link": {
+		"url": "deeplink://deeplink/url/into/app",
+		"fallback": "http: //i.am.a/URL",
+		"clicktrackers": [
+			"https://www.nescafe.com/me/en-ae/our-coffees"
+		]
+	},
+  "assets": {
+    "images":[
+      {
+			  "url": "./cofee.png"
+      },
+      {
+        "url": "./coffee2.png"
+      },
+      {
+        "url": "./coffee3.png"
+      },
+      {
+        "url": "./presentation-newest.png"
+      }
+    ],
+    "label":{
+      "text":"Order online"
+    },
+    "toggler":{
+      "url":"./nescafe-logo.png",
+      "w":"60"
+    }
+  }
+}

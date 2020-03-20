@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    <script src="https://unpkg.com/vue-chartjs/dist/vue-chartjs.min.js"></script>
+</head>
+
+<body>
+    <div id="upload-form">
+        <div id="app">
+            <transition name="loading">
+                <div class="loading" v-if="loading">
+
+                </div>
+            </transition>
+            <h1>
+                Simplif<span>ai</span> Labs
+            </h1>
+            <p>Cognitive Ad Science Demo</p>
+
+
+            <main>
+
+                <div class="input-container">
+                    <input type="url" placeholder="Paste URL" v-model="url">
+                    <button :disabled="!url" @click="submitFile()">Analyse</button>
+                </div>
+                <div class="results-container">
+                    <div v-if="loaded">
+                        <h3>Emotions</h3>
+                        <div>
+                            <ul>
+                                <li v-for="(value, key) in response.emotion" style="grid-template-columns: 1fr 40% 100px;">
+                                    <span>{{key}}</span>
+                                    <span>
+                                        <div class="progress-bar">
+                                            <div class="progress-line" :style="{width: value * 100 + '%'}">
+
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span style="text-align:right">{{parseFloat(value).toFixed(2)}}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="results-container" style="grid-area: categories">
+                    <div v-if="loaded">
+                        <h3>Categories</h3>
+                        <div>
+                            <ul>
+                                <li v-for="item in response.categories" style="grid-template-columns: 1fr;">
+                                    <span>{{item.label}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container" style="grid-area: sentiments">
+                    <div v-if="loaded">
+                        <h3 style="margin-top: 40px;">Sentiment</h3>
+                        <div>
+                            <ul>
+                                <li style="grid-template-columns: 1fr 40% 100px;">
+                                    <span>{{response.sentiments.label}}</span>
+                                    <span>
+                                        <div class="progress-bar">
+                                            <div class="progress-line" :style="{width: response.sentiments.score * -100 + '%'}">
+
+                                            </div>
+                                        </div>
+                                    </span>
+                                    <span style="text-align:right">{{parseFloat(response.sentiments.score).toFixed(2)}}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-container" style="grid-area: keywords; min-height: none">
+                    <div v-if="loaded">
+                        <h3>Keywords</h3>
+                        <div>
+                            <ul style="display:grid;grid-template-columns: 1fr 1fr 1fr;grid-gap: 5px;">
+                                <div v-for="item in response.keywords">
+                                    <li style="grid-template-columns: 1fr; border: none; background-color:rgba(29, 29, 29, 0.171);vertical-align:middle;">
+                                        <span>{{item.text}}</span>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+
+
+
+
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.8/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1 "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+    <script>
+
+        Vue.component('line-chart', {
+            extends: VueChartJs.Pie,
+            props: ['results'],
+            mounted() {
+                Chart.defaults.segmentShowStroke = false;
+                this.renderChart({
+                    labels: ['anger', 'disgust', 'fear', 'joy', 'sadness'],
+                    datasets: [
+                        {
+                            label: 'Data One',
+                            backgroundColor: ['#655dd3', '#5851b6', '#3e37a1', '#302a85', '#2c285f'],
+                            hoverBackgroundColor: ['#655dd3', '#5851b6', '#3e37a1', '#302a85', '#2c285f'],
+                            data: this.results,
+                            borderWidth: 0,
+                            legend: {
+                                display: false
+                            }
+                        }
+                    ]
+                }, {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        legend: {
+                            display: false
+                        }
+                    })
+            }
+
+        })
+
+        new Vue({
+            el: '#upload-form',
+            data() {
+                return {
+                    url: '',
+                    response: null,
+                    chart: [],
+                    show: null,
+                    loaded: false,
+                    loading: false,
+                    preview: true
+                }
+            },
+
+            methods: {
+                submitFile() {
+
+                    let url = JSON.stringify({
+                        'url': this.url
+                    })
+                    this.loading = true
+                    this.preview = false
+                    axios.post('https://cognitive.simplifailabs.com/api/v2/text-nlu', url, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Token 64ada56366739fff71d6fc40973da73f8451d0e5',
+                        }
+                    }
+                    ).then(response => {
+                        console.log(response.data);
+                        this.chart.push(response.data.emotion.anger, response.data.emotion.disgust, response.data.emotion.fear, response.data.emotion.joy, response.data.emotion.sadness)
+                        console.log(this.chart)
+                        this.show = "true"
+                        this.response = response.data
+                        this.loaded = true
+                        this.loading = false
+                    }).catch(e => {
+                        console.log(e)
+                        this.loaded = true
+                        this.loading = false
+                    });
+                }
+            }
+
+
+        })
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

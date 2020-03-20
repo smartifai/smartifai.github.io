@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body{
+    background-color: #420F76;
+    font-family: 'Montserrat', sans-serif;
+    background: #19196F;  
+    background: -webkit-linear-gradient(to bottom right, #19196F, #420F76);  
+    background: linear-gradient(to bottom right, #19196F, #420F76);  
+}
+
+.loading{
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: url(loading.svg);
+  background-position:center center;
+  background-size: 120px 120px;
+  background-repeat: no-repeat;
+  background-color: rgba(255,255,255,0.6);
+  z-index: 999;
+}
+
+.loading-enter-active, .loading-leave-active {
+  transition: opacity ease-in-out 0.5s;
+  transition-delay: 0s;
+}
+.loading-enter, .loading-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity ease-in-out 1s;
+  transition-delay: 0s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+  opacity: 0;
+}
+
+.fade-enter-active{
+  transition-delay: 1s;
+}
+
+.circle{
+  width: 40px;
+  height: 40px;
+  margin-left: calc(100% - 40px);
+  border-radius: 100%;
+  border: 1px solid white;
+}
+
+#app > h1{
+  color: #fff;
+  margin-bottom: 5px;
+  text-align:center;
+}
+
+#app > h1 > span{
+  color: #27B0F0 !important; 
+}
+
+#app > p{
+  color:#27B0F0;
+  margin-top: 0;
+  text-align:center;
+  margin-bottom: 40px;
+}
+
+main{
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 155px;
+  grid-template-columns: 60% 40%;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-areas: 
+  'image result'
+  'actions result';
+  min-height: 730px;
+}
+
+.image-container{
+  grid-area: image;
+  background-color: rgba(29, 29, 29, 0.452);
+  padding: 20px;
+  position:relative;
+}
+
+.preview{
+  color:rgb(255, 255, 255);
+  text-align: center;
+  margin-top: calc(50% - 80px);
+}
+
+
+.preview i{
+  font-size: 100px;
+}
+
+.image-container img{
+  width: 100%;
+
+}
+
+.actions-container{
+  grid-area: actions;
+  background-color: rgba(29, 29, 29, 0.452);
+  padding: 10px;
+  display:grid;
+  grid-template-columns: 135px 135px 135px 135px;
+  justify-content: center;
+}
+
+.actions-container .action{
+  position:relative;
+  padding:0px;
+  height: 115px;
+  background-color: rgba(112, 48, 160, 0.3);
+  text-align:center;
+  color:#fff;
+  font-size: 13px;
+  cursor:pointer;
+  border: 8px solid #3D1E65;
+}
+
+.actions-container .action .overlay{
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(112, 48, 160, 0.3);
+}
+
+.actions-container .action:hover{
+  background-color: rgba(112, 48, 160, 0.4);
+}
+
+.actions-container .action img{
+  height: 100%;
+  opacity: .7;
+  transition: opacity ease-in-out .5s;
+}
+
+.actions-container .action:hover img{
+  opacity: 1;
+}
+
+.actions-container .action:hover .overlay{
+  opacity: 0;
+}
+
+.actions-container .action:nth-child(1){
+  background-image: url(image2.jpeg);
+  background-size: cover;
+}
+
+.actions-container .action:nth-child(2){
+  background-image: url(image.jpg);
+  background-size: cover;
+}
+
+.actions-container .action:nth-child(3){
+  background-image: url(0529.jpg);
+  background-size: cover;
+}
+
+.actions-container .action:last-child{
+  height: 131px;
+  background-color:rgba(0, 112, 255,1);
+  border: 0px solid #3D1E65;
+/*   background: #1e3c72;  
+  background: -webkit-linear-gradient(to bottom, #2F164F, #29173F);  
+  background: linear-gradient(to bottom, #2F164F, #29173F);  */
+  color:#fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.actions-container .action i{
+  font-size: 40px;
+  margin-top: 30px;
+}
+
+.results-container{
+  grid-area: result;
+  background-color: rgba(29, 29, 29, 0.452);
+  padding: 10px 20px;
+  overflow-y: auto;
+  max-height: 745px;
+}
+
+.results-container h3{
+  margin-bottom: 0;
+  font-weight: 500;
+  font-size: 1.1em;
+  color:rgb(230, 230, 230);
+}
+
+.results-container > p{
+  margin-top: 10px;
+  font-size: .9em;
+  font-weight: 300;
+  color:rgb(165, 165, 165);
+}
+
+.results-container ul{
+  padding: 0;
+  color:rgb(230, 230, 230);
+}
+
+.results-container ul p{
+  margin: 0;
+  text-align:right;
+}
+
+.results-container ul li{
+  display:grid;
+  grid-template-columns: 1fr 100px;
+  list-style: none;
+  padding: 15px 10px;
+  border-top: 1px solid rgb(196, 196, 196);
+  line-height: 42px;
+}
+
+.results-container ul li:last-child{
+  border-bottom: 0.5px solid rgb(196, 196, 196);
+}

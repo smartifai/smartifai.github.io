@@ -1,0 +1,91 @@
+<html>
+
+<head>
+  <title>
+    Test
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="simplifai-info">
+
+    <h3>
+      Simplif<span>ai</span> Labs
+      <p>AI powered Ads</p>
+    </h3>
+
+    <h4>
+
+      Simplifai Labs is an artificial intelligence company, we are creating a new shopping experience in the Arab world
+      by providing an innovative solution for eCommerce and brands by turning any images into a seamless online
+      shopping experience using our cutting-edge Artificial Intelligence enabled Visual Discovery Technology.
+      <br /><br />
+
+      We understand the images and videos like human does to recognize visual content which enables us to provide you a
+      delightful shopping experience. To know more about our solutions for publishers and advertisers, please write to
+      us at <span>info@simplifailabs.com</span>
+
+    </h4>
+
+    <div class="simplifai-info-close-button" onclick="showInfo()">
+      x
+    </div>
+
+  </div>
+
+  <div class="simplifai-banner">
+
+    <div class="banner-ads-label">
+      Shop the look
+    </div>
+
+    <div class="company-icon" onclick="showInfo()">
+      ai
+    </div>
+
+    <div class="banner-close-button" onclick="closeBanner()">
+      x
+    </div>
+
+    <div class="img-wrapper">
+
+      <div class="ads-banner__img-container" style="background-image: url(iphone.png); transform:rotateZ(30deg)">
+      </div>
+
+      <div class="ads-banner__img-container" style="background-image: url(iphone.png);">
+      </div>
+
+      <div class="ads-banner__img-container" style="background-image: url(iphone.png)">
+      </div>
+
+      <div class="ads-banner__img-container" style="background-image: url(iphone.png)">
+      </div>
+
+    </div>
+
+    <div class="background">
+
+    </div>
+
+  </div>
+
+<script>
+  function closeBanner(){
+    var elem = document.querySelector('.simplifai-banner');
+    elem.style.display = 'none';
+  }
+
+  function showInfo(){
+    var elem = document.querySelector('.simplifai-info');
+
+    elem.classList.toggle('info-show')
+  }
+
+</script>
+
+</body>
+
+</html>

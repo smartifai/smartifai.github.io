@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="upload-form">
+        <div id="app">
+            <h1>
+                Simplif<span>ai</span> Labs
+            </h1>
+            <p>Visual Recognition Demo</p>
+          <main>
+            <div class="image-container">
+                <transition name="loading">
+                    <div class="loading" v-if="loading"></div>
+                </transition>
+              <img :src="url" v-if="url && !image1 && !image2 && !image3">
+                <img src="image2.jpeg" v-if="!url && image1">
+                <img src="image.jpg" v-if="!url && image2">
+                <img src="0529.jpg" v-if="!url && image3">
+                <div class="preview" v-if="!url && !image1 && !image2 && !image3">
+                    <i class="fas fa-camera"></i>
+                    <p>Upload image to preview</p>
+                </div>
+            </div>
+            <div class="actions-container">
+              <div class="action" 
+                @click="
+                image1 = true;
+                image2 = false;
+                image3 = false;
+                result = false;
+                url='';
+                ">
+                <div class="overlay">
+
+                </div>
+              </div>
+              <div class="action"
+              @click="
+                image1 = false;
+                image2 = true;
+                image3 = false;
+                result = false;
+                url='';
+                ">
+                <div class="overlay">
+
+                </div>
+              </div>
+              <div class="action"
+              @click="
+                image1 = false;
+                image2 = false;
+                image3 = true;
+                result = false;
+                url='';
+                ">
+                <div class="overlay">
+
+                </div>
+              </div>
+              <input type="file" id="file" accept="image/*" ref="file" 
+                v-on:change="
+                    handleFileUpload(), 
+                    onFileChange(), 
+                    submitFile(),
+                    image1 = false;
+                    image2 = false;
+                    image3 = false;"
+                    style="display:none;" 
+                />
+
+              <label for="file">
+                <div class="action" style="  background-image: none;">
+                  <i class="fas fa-camera"></i>
+                  <p>Click to upload</p>
+                </div>
+              </label>
+            </div>
+            <div class="results-container">
+              <h3>Model results</h3>
+              
+              <ul >
+                <transition-group name="fade">
+                  <li v-for="item in apparels" :key="item" v-if="result">
+                    {{item.apparel}}
+                    <p>
+                        {{parseFloat(item.accuracy).toFixed(2)}}
+                    </p>
+                  </li>
+                </transition-group>
+                <transition-group name="fade">
+                  <li v-for="item in colors" :key="item" v-if="result" style="line-height: 40px;">
+                    {{item}}
+                    <div class="circle" v-bind:style="{ backgroundColor :  item  }">
+                            
+                    </div>
+                  </li>
+                </transition-group>
+
+                <transition-group name="fade">
+                    <li v-for="item in apparels1" :key="item" v-if="image1 && !result">
+                        {{item[0]}}
+                        <p>{{item[1]}}</p>
+
+
+                    </li>
+                </transition-group>
+                <transition-group name="fade">
+                    <li v-for="item in colors1" :key="item" v-if="image1 && !result">
+                        {{item}}
+
+                        <div class="circle" v-bind:style="{ backgroundColor : 'rgb(' + item + ')' }">
+                            
+                        </div>
+                    </li>
+                </transition-group>
+
+
+                <transition-group name="fade">
+                    <li v-for="item in apparels2" :key="item" v-if="image2 && !result">
+                        {{item[0]}}
+                        <p>{{item[1]}}</p>
+                    </li>
+                </transition-group>
+
+                <transition-group name="fade">
+                    <li v-for="item in colors2" :key="item" v-if="image2 && !result">
+                        {{item}}
+                        <div class="circle" v-bind:style="{ backgroundColor : 'rgb(' + item + ')' }">
+                            
+                        </div>
+                    </li>
+                </transition-group>
+
+
+
+                <transition-group name="fade">
+                    <li v-for="item in apparels3" :key="item" v-if="image3 && !result">
+                        {{item[0]}}
+                        <p>{{item[1]}}</p>
+                    </li>
+                </transition-group>
+
+                <transition-group name="fade">
+                    <li v-for="item in colors3" :key="item" v-if="image3 && !result">
+                        {{item}}
+
+                        <div class="circle" v-bind:style="{ backgroundColor : 'rgb(' + item + ')' }">
+                            
+                        </div>
+                    </li>
+                </transition-group>
+              </ul>
+
+            </div>
+          </main>
+
+
+
+
+        </div>
+    </div>
+
+
+
+    <script src='https://unpkg.com/vue/dist/vue.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1 "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#upload-form',
+            data() {
+                return {
+                    file: '',
+                    url: null,
+                    errors: [],
+                    image1:false,
+                    image2:false,
+                    image3:false,
+
+                            apparels1:[
+                                ["sneakers", 1.00],
+                                ["jeans", 0.81], 
+                                ["coat", 0.91]
+                            ],
+                            colors1:["47,48,46" , "113, 108, 100", "177, 180, 181"],
+
+                            apparels2:[
+                                ["coat", 0.87],
+                                
+                            ],
+                            colors2:["141,131,92" , "44, 45, 48", "224, 207, 184"],
+
+                            apparels3:[
+                                ["trousers", 0.98], 
+                                ["blazers", 0.96],
+                                ["waistcoat", 0.98]
+                            ],
+                            colors3:["141,131,92" , "44, 45, 48", "224, 207, 184"],
+                    result: null,
+                    apparels:null,
+                    colors:null,
+                    loading: null,
+                    orderedData: [],
+                    preloading: false
+                }
+            },
+            computed: {
+/*                 stransformToStyle: function(){
+                    for (color in this.colors){
+                        console.log(color)
+                    }
+                } */
+            },
+            methods: {
+
+                /*
+                  Submits the file to the server
+                */
+                onFileChange(e) {
+                    this.url = URL.createObjectURL(this.file);
+
+                    console.log(this.url)
+                },
+                submitFile() {
+                    /*
+                            Initialize the form data
+                        */
+                        console.log(this.file)
+                    if (this.file) {
+                        let formData = new FormData();
+
+                        /*
+                            Add the form data we need to submit
+                        */
+
+                        formData.append('file', this.file);
+
+                        /*
+                        Make the request to the POST /single-file URL
+                        */
+
+                        axios.post('http://visual-recog.simplifailabs.com/api/v1/classify-img',
+                            formData,
+                            {
+                                headers: {
+                                    'Content-Type': 'multipart/form-data',
+                                    'Authorization': 'Token f8383c6b3959f790a7dc78da796800a3b131b7d8'
+                                }
+                            }
+                        ).then(response => {
+
+                            console.log(response.data);
+                            this.result = true;
+                            this.apparels = response.data.apparels;
+                            this.colors = response.data.colors;
+                            console.log(this.result)
+                        }).catch(e => {
+                            this.errors.push(e)
+
+                        });
+                    } else {
+                        console.log("Choose the part")
+                    }
+                },
+
+                /*
+                  Handles a change on the file upload
+                */
+                handleFileUpload() {
+                    this.file = this.$refs.file.files[0];
+                }
+            }
+
+
+        })
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>
