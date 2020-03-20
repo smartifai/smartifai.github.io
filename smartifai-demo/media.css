@@ -1,0 +1,258 @@
+@media screen and (max-width: 1024px) {
+    .container {
+        max-width: 1000px;
+    }
+
+    .text-mod-milk {
+        font-size: 16px;
+        line-height: 25px;
+    }
+
+    .text-mod-jacobs {
+        text-align: center;
+        font-size: 22px;
+    }
+}
+
+@media screen and (max-width: 1023px) {
+    .container {
+        max-width: 800px;
+    }
+
+    #close__x {
+        padding: .4%;
+        right: 24px;
+    }
+
+    .hidden__poster {
+        justify-content: center;
+    }
+
+    .milka__poster {
+        justify-content: center;
+    }
+
+    #poster__first {
+        width: 141px;
+        height: 101px;
+        bottom: 0;
+        margin: 0 18px;
+    }
+
+    #poster-mod-milk {
+        margin: 0 12px 0 9px !important;
+    }
+
+    .text__poste__macdon {
+        margin: 0 12px;
+    }
+
+    .text-mod-mcdon {
+        font-size: 22px;
+        line-height: 27px
+    }
+
+    #poster-mod-jacobs {
+        width: 30%;
+    }
+
+    .pulse-button {
+        max-width: 128px;
+        height: 31px;
+        display: flex;
+        margin: 0 42px 0 18px;
+        padding: 0;
+    }
+
+    .order__button {
+        font-size: 14px;
+        white-space: pre-wrap;
+        padding: 5px 15px;
+    }
+}
+
+@media screen and (max-width: 864px) {
+    .container {
+        max-width: 608px;
+    }
+
+    #poster-mod-milk {
+        width: 20%;
+    }
+
+    .text__poste__milka {
+        margin: 0;
+        bottom: -12px;
+    }
+
+    .text__poste__jacobs {
+        bottom: -13px;
+    }
+
+    .text__poste__macdon {
+        bottom: -20px;
+    }
+
+    .text-mod-milk {
+        font-size: 16px;
+        line-height: 25px;
+        text-align: center;
+    }
+
+    .pulse-button {
+        bottom: -22px;
+    }
+}
+
+@media screen and (max-width: 643px) {
+    .container {
+        max-width: 500px;
+    }
+
+    #poster__first {
+        width: 82px;
+        height: 63px;
+        bottom: 0;
+        margin: 0 18px;
+    }
+
+    .text-mod-mcdon {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    .text-mod-jacobs {
+        font-size: 14px;
+        line-height: 21px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    html,
+    body {
+      height: calc(100vh - 56px);
+    }
+    .nav__link {
+        font-size: .7em;
+    }
+
+    .container {
+        max-width: 380px;
+    }
+
+    .header__text h1 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .header__text h2 {
+        font-size: 16px;
+        margin-bottom: 25px;
+    }
+
+    #close__x {
+        padding: .4%;
+        right: 8px;
+        top: 5px;
+    }
+
+    .hidden__poster {
+        justify-content: space-evenly;
+    }
+
+    #poster__first {
+        margin: 0 7px 0 0;
+        bottom: 1px;
+    }
+
+    .text__poste__macdon {
+        bottom: -12px;
+    }
+
+    .text-mod-mcdon {
+        font-size: 11px;
+        line-height: 17px;
+    }
+
+    .text__poste__jacobs {
+        bottom: -5px;
+    }
+
+    .pulse-button {
+        max-width: 74px;
+        height: 17px;
+        margin: 0 10px;
+        bottom: -12px;
+    }
+
+    .order__button {
+        font-size: 9px;
+        padding: 2px 8px;
+    }
+
+    .copyright-nav-mobile {
+        text-align: center;
+        padding: 10px 10px 45px 10px;
+    }
+
+    .copyright__text {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .container__images {
+        width: 112%;
+        position: relative;
+        left: -23px;
+    }
+
+    .hidden__poster {
+        border-radius: 0;
+    }
+
+    #poster-mod-jacobs {
+        width: 33%;
+    }
+
+    #poster-mod-milk {
+        width: 22%;
+    }
+
+    .pulse-button {
+        max-width: 84px;
+        height: 21px;
+    }
+
+    .order__button {
+        font-size: 9px;
+        padding: 4px 12px;
+    }
+}
+
+
+@media screen and (max-width: 320px) {
+    .container {
+        max-width: 280px;
+    }
+
+    #close__x {
+        right: 5px;
+        top: -10px;
+    }
+
+    .container__images {
+        width: 115%;
+        position: relative;
+        left: -23px;
+    }
+
+    .text__poste__macdon {
+        margin: 0 9px;
+    }
+
+    .text-mod-mcdon {
+        font-size: 9px;
+        line-height: 14px;
+    }
+}
